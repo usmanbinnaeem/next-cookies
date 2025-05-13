@@ -7,6 +7,27 @@ export default function NestjsDemo() {
   const [response, setResponse] = useState<{ success: boolean; message?: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  // Function to set the cookie
+  const setCookie = async () => {
+    setIsLoading(true);
+    setError(null);
+    
+    try {
+      const result = await fetch('/api/set-cookie', {
+        method: 'GET',
+        credentials: 'include',
+      });
+      
+      const data = await result.json();
+      setResponse(data);
+      
+    } catch (err) {
+      setError('Failed to set cookie: ' + (err instanceof Error ? err.message : String(err)));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   // Function to call the Nest.js API
   const checkNestjsAuth = async () => {
     setIsLoading(true);
@@ -39,8 +60,16 @@ export default function NestjsDemo() {
       
       <div className="space-y-4">
         <p className="text-sm text-gray-600">
-          First set the cookie using the component above, then click the button below to test with Nest.js.
+          Testing cookie sharing between app.chatsync.live and api.chatsync.live
         </p>
+        
+        <button
+          onClick={setCookie}
+          disabled={isLoading}
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+        >
+          {isLoading ? 'Loading...' : 'Set Cookie'}
+        </button>
         
         <button
           onClick={checkNestjsAuth}
