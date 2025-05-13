@@ -15,7 +15,7 @@ export default function NestjsDemo() {
     try {
       // Use the FULL URL to your Nest.js server here
       // The important part is including 'credentials: "include"' to send cookies
-      const result = await fetch('https://disabled-crocodile-menni-9b161ce6.koyeb.app/api/test', {
+      const result = await fetch('https://api.chatsync.live/api/test', {
         method: 'GET',
         credentials: 'include', // This is critical for sending cookies cross-domain
         headers: {
