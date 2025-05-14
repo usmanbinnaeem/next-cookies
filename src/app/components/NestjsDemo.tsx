@@ -14,8 +14,15 @@ export default function NestjsDemo() {
     
     try {
       const result = await fetch('/api/set-cookie', {
-        method: 'GET',
+        method: 'POST',
         credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          secretKey: 'your-secret-key-value',
+          menniSecretKey: 'your-menni-secret-key-value',
+        }),
       });
       
       const data = await result.json();
